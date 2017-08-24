@@ -29,7 +29,7 @@ get '/logout' do
   redirect '/'
 end
 
-# helper
+# helpers
 def check_guess(guess)	
 	case 
 		when session[:number].to_i > guess.to_i then "#{guess} is low than SECRET NUMBER" 
