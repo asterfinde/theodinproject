@@ -1,3 +1,27 @@
+require 'sinatra'
+require 'sinatra/reloader'
+
+# initial
+get '/' do
+	message = 'Please, input your text to encrypt:'
+	erb :index, :locals => {:message => message}
+end
+
+# process
+post "/" do
+	text = params[:text]
+	shift = 5
+	
+	if text != ''
+		message = "Your cipher text is:<br>" + "<b>" + caesar_cipher(text, shift) + "</b>"
+	else
+		message = %Q(<b>That's not a valid text!</b>)
+	end
+	
+	erb :index, :locals => {:message => message}
+end
+
+# helpers
 def search_hash(to_search, search_by, hash)
   result = ''
 	
@@ -32,11 +56,6 @@ def change_letter(char, shift, hash)
 		
 		# get value from this position searching by key, checking the original case
 		return search_hash(pos, "key", hash)
-	 	#if type_char == "U"
-		#	return search_hash(pos, "key", hash)
-		#else	
-		#	return search_hash(pos, "key", hash)
-		#end	
 	else 
 		return char
 	end	
@@ -81,9 +100,7 @@ def caesar_cipher(string, shift)
 	return new_string
 end
 
-puts "The Beatles!"
-puts caesar_cipher("The Beatles!", 5)
-
+# Test
 #puts "What a string!"
-#puts caesar_cipher("What a string!", 5)
+#puts caesar_cipher("What a string!", 5) == "Bmfy f xywnsl!"
 			 
